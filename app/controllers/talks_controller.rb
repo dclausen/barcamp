@@ -2,10 +2,13 @@ class TalksController < ApplicationController
   before_filter :login_required, :except => :index
 
   def index    
-    @talks    = Talk.all
+
+    conditions = (params[:day] ? ["day = ?", params[:day]] : nil)
+    @talks = Talk.all(:conditions => conditions, :include => :room, :with_deleted => true)
 
     respond_to do |format|      
-      format.json {}      
+      format.html 
+      format.json
     end
   end
   

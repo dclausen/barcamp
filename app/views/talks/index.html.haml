@@ -1,0 +1,15 @@
+%table
+  %thead
+    %tr
+      %th Time
+      %th Talk
+      %th Room
+  %tbody
+    - @talks.each do |t|
+      %tr
+        %td 
+          = talk_time(t)
+        %td
+          = t.name
+        %td
+          = t.room.name

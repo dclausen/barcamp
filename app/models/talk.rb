@@ -1,4 +1,6 @@
 class Talk < ActiveRecord::Base
+  acts_as_paranoid
+
   belongs_to :room
   
   named_scope :by_time,   :order => "time(start_time)"
@@ -11,6 +13,11 @@ class Talk < ActiveRecord::Base
 
   validates_presence_of :name, :room_id, :start_time, :end_time
   validate :timecheck
+
+  #to make talk.room.name easily accessible to to_json calls
+  def room_name
+    room.name
+  end
 
   def timecheck
     min = Date.new(2000,1,1)

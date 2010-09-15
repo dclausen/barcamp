@@ -5,3 +5,5 @@ doc/app/*
 log/*.log
 tmp/**/*
 config/deploy.rb
+deploy.rb
+
