@@ -1,6 +1,7 @@
 %table{ :width => "100%" }
   %thead
     %tr
+      %th Day
       %th Time
       %th Talk
       %th Room
@@ -9,6 +10,8 @@
   %tbody
     - @talks.each do |t|
       %tr
+        %td
+          = t.day.strftime("%m/%d")
         %td 
           = talk_time(t)
         %td
