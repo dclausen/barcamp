@@ -4,7 +4,7 @@ class TalksController < ApplicationController
   def index    
 
     conditions = (params[:day] ? ["day = ?", params[:day]] : nil)
-    @talks = Talk.all(:conditions => conditions, :include => :room, :with_deleted => true)
+    @talks = Talk.all(:conditions => conditions, :include => :room, :with_deleted => true, :order => "start_time")
 
     respond_to do |format|      
       format.html 
@@ -20,7 +20,7 @@ class TalksController < ApplicationController
     @talk = Talk.create(params[:talk])
     if @talk.save
       flash[:notice] = "Talk created"
-      redirect_to root_path
+      redirect_to talks_path
     else
       render :action => "new"
     end
