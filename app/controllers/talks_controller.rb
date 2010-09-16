@@ -4,7 +4,7 @@ class TalksController < ApplicationController
   def index    
 
     conditions = (params[:day] ? ["day = ?", params[:day]] : nil)
-    @talks = Talk.all(:conditions => conditions, :include => :room, :with_deleted => true, :order => "start_time")
+    @talks = Talk.all(:conditions => conditions, :include => :room, :with_deleted => true, :order => "day, start_time")
 
     respond_to do |format|      
       format.html 
