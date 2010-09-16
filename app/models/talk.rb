@@ -11,7 +11,7 @@ class Talk < ActiveRecord::Base
   named_scope :active,    lambda { |*args| named_scope_active( *args ) }
   named_scope :next,      lambda { |*args| named_scope_next( *args ) }
 
-  validates_presence_of :name, :room_id, :start_time, :end_time
+  validates_presence_of :day, :name, :room_id, :start_time, :end_time
   validate :timecheck
 
   #to make talk.room.name easily accessible to to_json calls
