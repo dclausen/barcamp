@@ -1,9 +1,11 @@
-%table
+%table{ :width => "100%" }
   %thead
     %tr
       %th Time
       %th Talk
       %th Room
+      %th Edit
+      %th Delete
   %tbody
     - @talks.each do |t|
       %tr
@@ -13,3 +15,7 @@
           = t.name
         %td
           = t.room.name
+        %td
+          = link_to 'Edit', edit_talk_path(t) 
+        %td
+          = link_to('Delete', talk_path(t), :method => "delete") unless t.deleted_at
