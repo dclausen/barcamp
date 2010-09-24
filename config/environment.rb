@@ -10,6 +10,7 @@ Rails::Initializer.run do |config|
   config.time_zone = 'UTC'
 
   config.gem "haml"
+  config.gem 'taps'
 
   config.action_controller.session = {
     :session_key => '_barcamp_session',
