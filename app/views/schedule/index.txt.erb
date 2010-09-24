@@ -7,8 +7,8 @@
     <%= NO_TALKS %>
 
   <%- else -%>
-<%= render :partial => "talks", :locals => { :daypart_description => "Morning",   :talks => room.talks.morning.by_time }%>
-<%= render :partial => "talks", :locals => { :daypart_description => "Afternoon", :talks => room.talks.afternoon.by_time }%>
+<%= render :partial => "talks", :locals => { :daypart_description => "Morning",   :talks => room.talks.morning.for_logical_day }%>
+<%= render :partial => "talks", :locals => { :daypart_description => "Afternoon", :talks => room.talks.afternoon.for_logical_day }%>
   <%- end -%>
 <%- end -%>
 

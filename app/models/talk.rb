@@ -3,6 +3,7 @@ class Talk < ActiveRecord::Base
 
   belongs_to :room
   
+  named_scope :by_day,   :order => "day"
   named_scope :by_time,   :order => "start_time"
 
   named_scope :for_logical_day, lambda { { :conditions => ["day = ?", self.logical_day], :order => "start_time" } }
