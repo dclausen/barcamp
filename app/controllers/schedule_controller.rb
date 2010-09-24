@@ -4,9 +4,7 @@ class ScheduleController < ApplicationController
   def index
     @rooms    = Room.all
     @sponsors = Sponsor.all
-    @talks = Talk.talks_for_logical_day
-    @morning_talks = @talks.select { |t| t.start_time.hour < 12 }
-    @afternoon_talks = @talks.select { |t| t.start_time.hour >= 12 }
+    @talks = Talk.all
 
     @sponsors_by_level = @sponsors.group_by { |sponsor| sponsor.level }
 

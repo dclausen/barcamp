@@ -13,8 +13,8 @@
           <li class="no_talks"><%= NO_TALKS %></li>
 
         <%- else -%>
-            <%= render :partial => "talks", :locals => { :daypart_description => "Morning",   :talks => @morning_talks }%>
-            <%= render :partial => "talks", :locals => { :daypart_description => "Afternoon", :talks => @afternoon_talks }%>
+          <%= render :partial => "talks", :locals => { :daypart_description => "Morning",   :talks => room.talks.morning.for_logical_day }%>
+          <%= render :partial => "talks", :locals => { :daypart_description => "Afternoon", :talks => room.talks.afternoon.for_logical_day }%>
         <%- end -%>
       </ul>
     </li>

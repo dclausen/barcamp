@@ -5,10 +5,16 @@ class Talk < ActiveRecord::Base
   
   named_scope :by_time,   :order => "start_time"
 
-  #BTE commented these out because the time() function is unavailable in
-  #PostgreSQL.  They could be replaced by conditionally determining the DB.
-  #named_scope :morning,   :conditions => [ "time(start_time) <  '12:00' " ]
-  #named_scope :afternoon, :conditions => [ "time(start_time) >= '12:00' " ]
+  named_scope :for_logical_day, lambda { { :conditions => ["day = ?", self.logical_day], :order => "start_time" } }
+
+  #Note: PostgreSQL (Heroku) uses date_part instead of sqlite's time function
+  if ENV['RAILS_ENV'] == 'production'
+    named_scope :morning,   :conditions => [ "date_part('hour', start_time) <  12" ]
+    named_scope :afternoon, :conditions => [ "date_part('hour', start_time) >= 12" ]
+  else
+    named_scope :morning,   :conditions => [ "time(start_time) <  '12:00'" ]
+    named_scope :afternoon, :conditions => [ "time(start_time) >= '12:00' " ]
+  end
 
   # Find the current and next talk
   named_scope :active,    lambda { |*args| named_scope_active( *args ) }
@@ -22,20 +28,13 @@ class Talk < ActiveRecord::Base
     days = Talk.all(:select => 'distinct day').map { |t| t.day }
     today = Date.today
 
-    if today < days.first
-      return days.first
-    end
-
-    days.each do |d|
-      return d if d == today
-    end
-
+    #three conditions for returning 
+    #1. today is earlier than the first day (return first)
+    #2. today is one of the conference days (return that day)
+    #3. today is after the last day (return last)
+    return days.first if today < days.first
+    days.each { |d| return d if d == today }
     days.last
-  end
-
-  #returns all talks for today's conference
-  def self.talks_for_logical_day
-    self.all(:conditions => ["day = ?", self.logical_day], :include => :room, :order => "day, start_time")
   end
 
   #to make talk.room.name easily accessible to to_json calls
