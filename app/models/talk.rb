@@ -3,9 +3,12 @@ class Talk < ActiveRecord::Base
 
   belongs_to :room
   
-  named_scope :by_time,   :order => "time(start_time)"
-  named_scope :morning,   :conditions => [ "time(start_time) <  '12:00' " ]
-  named_scope :afternoon, :conditions => [ "time(start_time) >= '12:00' " ]
+  named_scope :by_time,   :order => "start_time"
+
+  #BTE commented these out because the time() function is unavailable in
+  #PostgreSQL.  They could be replaced by conditionally determining the DB.
+  #named_scope :morning,   :conditions => [ "time(start_time) <  '12:00' " ]
+  #named_scope :afternoon, :conditions => [ "time(start_time) >= '12:00' " ]
 
   # Find the current and next talk
   named_scope :active,    lambda { |*args| named_scope_active( *args ) }
@@ -28,6 +31,11 @@ class Talk < ActiveRecord::Base
     end
 
     days.last
+  end
+
+  #returns all talks for today's conference
+  def self.talks_for_logical_day
+    self.all(:conditions => ["day = ?", self.logical_day], :include => :room, :order => "day, start_time")
   end
 
   #to make talk.room.name easily accessible to to_json calls

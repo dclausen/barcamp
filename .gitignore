@@ -6,4 +6,4 @@ log/*.log
 tmp/**/*
 config/deploy.rb
 deploy.rb
-
+sponsors.csv

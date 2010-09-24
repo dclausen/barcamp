@@ -59,8 +59,8 @@
             </div>
           </fieldset>
         <% else %>
-          <%= render :partial => "talks", :locals => { :daypart_description => "Morning",   :talks => room.talks.morning.by_time }%>
-          <%= render :partial => "talks", :locals => { :daypart_description => "Afternoon", :talks => room.talks.afternoon.by_time }%>
+          <%= render :partial => "talks", :locals => { :daypart_description => "Morning",   :talks => @morning_talks }%>
+          <%= render :partial => "talks", :locals => { :daypart_description => "Afternoon", :talks => @afternoon_talks }%>
         <% end %>
       </div>
     <% end %>

@@ -6,14 +6,13 @@ xml.rss :version => "2.0" do
     xml.link  HOMEPAGE
     xml.description "Talks Schedule for #{PAGE_TITLE}"
 
-    @rooms.each do |room|
-      room.talks.by_time.each do |talk|
-        xml.item do
-          xml.title       "#{room.name} - #{talk_time(talk)} - #{talk.name}"
-          xml.description talk.description
-          xml.pubDate     talk.updated_at.to_s(:rfc822)
-          xml.link        nil
-        end
+    @talks.each do |talk|
+      xml.item do
+        xml.title       "#{talk.room.name} - #{talk_time(talk)} - #{talk.name}"
+        xml.date        "#{talk.day.strftime("%m/%d/%Y")}"
+        xml.description talk.description
+        xml.pubDate     talk.updated_at.to_s(:rfc822)
+        xml.link        nil
       end
     end
 
