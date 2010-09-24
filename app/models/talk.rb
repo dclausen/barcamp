@@ -14,6 +14,22 @@ class Talk < ActiveRecord::Base
   validates_presence_of :day, :name, :room_id, :start_time, :end_time
   validate :timecheck
 
+  #return the best conference day for today's date
+  def self.logical_day
+    days = Talk.all(:select => 'distinct day').map { |t| t.day }
+    today = Date.today
+
+    if today < days.first
+      return days.first
+    end
+
+    days.each do |d|
+      return d if d == today
+    end
+
+    days.last
+  end
+
   #to make talk.room.name easily accessible to to_json calls
   def room_name
     room.name

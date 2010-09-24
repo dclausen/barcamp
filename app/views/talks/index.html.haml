@@ -1,24 +1,26 @@
 %table{ :width => "100%" }
   %thead
     %tr
-      %th Day
       %th Time
       %th Talk
+      %th Speaker
       %th Room
-      %th Edit
-      %th Delete
+      - if logged_in?
+        %th Edit
+        %th Delete
   %tbody
     - @talks.each do |t|
       %tr
-        %td
-          = t.day.strftime("%m/%d")
         %td 
-          = talk_time(t)
+          = t.start_time.strftime("%H:%M")
         %td
           = t.name
+        %td 
+          = t.who
         %td
           = t.room.name
-        %td
-          = link_to 'Edit', edit_talk_path(t) 
-        %td
-          = link_to('Delete', talk_path(t), :method => "delete") unless t.deleted_at
+        - if logged_in?
+          %td
+            = link_to 'Edit', edit_talk_path(t) 
+          %td
+            = link_to('Delete', talk_path(t), :method => "delete") unless t.deleted_at

@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :session
   
-  map.root :controller => 'talks'
+  map.root :controller => 'schedule'
   map.resources :talks, :rooms, :sponsors, :schedule
   
   map.login '/login', :controller => 'sessions', :action => 'new'

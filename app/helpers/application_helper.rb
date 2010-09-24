@@ -1,6 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def site_header
+    "BarCamp Tampa Bay" + (@day ? @day.strftime(" %m/%d") : "")
+  end
+
   def talk_url( talk )
     link_to( talk.url, talk.url, { :target => "_blank" } ) if talk.url
   end
@@ -12,7 +16,7 @@ module ApplicationHelper
   end
 
   def text_talk_description( talk, padding, width)
-    wrap_text( talk.description, width ).gsub( "\n", "\n" + padding)
+    wrap_text( talk.description, width ).gsub( "\n", "\n" + padding) if talk.description
   end
 
   # From: http://blog.macromates.com/2006/wrapping-text-with-regular-expressions/

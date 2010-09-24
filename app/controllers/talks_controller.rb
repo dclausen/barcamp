@@ -3,12 +3,15 @@ class TalksController < ApplicationController
 
   def index    
 
-    conditions = (params[:day] ? ["day = ?", params[:day]] : nil)
-    @talks = Talk.all(:conditions => conditions, :include => :room, :with_deleted => true, :order => "day, start_time")
-
     respond_to do |format|      
-      format.html 
-      format.json 
+      format.html do
+        @day = Talk.logical_day
+        @talks = Talk.all(:conditions => ["day = ?", @day], :include => :room, :with_deleted => true, :order => "day, start_time")
+      end
+
+      format.json do
+        @talks = Talk.all(:include => :room, :with_deleted => true, :order => "day, start_time")
+      end
     end
   end
   
