@@ -9,7 +9,9 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   config.time_zone = 'UTC'
 
-  config.gem "haml"
+  config.gem 'haml'
+
+  config.gem 'awesome_print', :require => 'ap'
 
   config.action_controller.session = {
     :session_key => '_barcamp_session',

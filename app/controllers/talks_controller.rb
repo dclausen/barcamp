@@ -46,7 +46,7 @@ class TalksController < ApplicationController
   
   def destroy
     Talk.destroy(params[:id])
-    redirect_to root_path
+    redirect_to talks_path
   end
   
 end

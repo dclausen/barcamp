@@ -26,7 +26,7 @@ class Talk < ActiveRecord::Base
 
   #return the best conference day for today's date
   def self.logical_day
-    days = Talk.all(:select => 'distinct day').map { |t| t.day }
+    days = (Talk.count > 0 ? Talk.all(:select => 'distinct day').map { |t| t.day } : [Date.today])
     today = Date.today
 
     #three conditions for returning 
