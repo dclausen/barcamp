@@ -3,12 +3,12 @@ desc "Seed Talk with dummy data"
 namespace :seed do
   task :talks => :environment do
 
-    puts "Destroying all rooms..."
-    Room.destroy_all
-
-    puts "Creating two rooms"
-    Room.create(:name => "Braniff Room")
-    Room.create(:name => "Worldcom Room")
+    puts "Creating two rooms if needed"
+    rooms = Room.count
+    if rooms < 2
+      names = ["Braniff Room", "Worldcom Room"]
+      (rooms..2).each { |x| Room.create(:name => names[x]) }
+    end 
 
     puts "Destroying all talks..."
     Talk.destroy_all
@@ -32,8 +32,6 @@ namespace :seed do
       )
       t.save!
       ap t
-
-      break if idx == 7
     end
 
     puts "Created #{Talk.count} talks"
