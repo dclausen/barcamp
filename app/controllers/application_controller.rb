@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base  
   include AuthenticatedSystem
 
-  before_filter :adjust_format_for_iphone
+  #before_filter :adjust_format_for_iphone
 
   helper :all # include all helpers, all the time
 
