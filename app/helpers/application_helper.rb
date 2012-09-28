@@ -1,10 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  def site_header
-    "BarCamp Tampa Bay" + (@day ? @day.strftime(" %m/%d") : "")
-  end
-
   def talk_url( talk )
     link_to( talk.url, talk.url, { :target => "_blank" } ) if talk.url
   end

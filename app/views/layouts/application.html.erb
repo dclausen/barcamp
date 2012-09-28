@@ -1,36 +1,51 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><%= PAGE_TITLE %></title>
-    <%= stylesheet_link_tag  "yui-reset" %>
-    <%= stylesheet_link_tag "style" %>
-	  <%= stylesheet_link_tag "style2" %>
+    <meta charset="utf-8">
+    <title>BarCamp Tampa Bay 2012</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <%= javascript_include_tag 'jquery-1.2.6' %>
-    <%= javascript_include_tag 'jquery.corner' %>
-    <%= javascript_include_tag 'talk_bubbles' %>
-    <%= javascript_include_tag 'corners' %>
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "bootstrap.min" %>
+    <%= stylesheet_link_tag "bootstrap-responseive.min" %>
+
+    <% stylesheet_link_tag "style" %>
+	  <% stylesheet_link_tag "style2" %>
+
+    <% javascript_include_tag 'jquery-1.2.6' %>
+    <% javascript_include_tag 'jquery.corner' %>
+    <% javascript_include_tag 'talk_bubbles' %>
+    <% javascript_include_tag 'corners' %>
 
 	  <%= yield :head %>
-    <script type="text/javascript">
-    </script>
   </head>
 
   <body>
-  	<%= yield :header %>
-	  <div id="wrapper">
-      <h1><%= link_to site_header, root_path %></h1>
-		<% if flash[:notice] %>
-			<div class="notice"><%= flash[:notice] %></div>
-		<%end%>
-		<%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="span12" style="text-align: center">
+          <%= link_to image_tag("barcamp-tampa-logo.png"), root_path %>
+        </div>
+      </div>
+
+      <% if flash[:notice] %>
+        <div class="notice"><%= flash[:notice] %></div>
+      <%end%>
+
+      <%= yield %>
+
+      <div class="login">
+        <% if logged_in? %>
+          <p>You are logged in as <%= current_user.login %> (<%= link_to "logout", logout_path %>)</p>
+        <% end %>
+      </div>
+
+      <%= yield :footer %>
     </div>
-  	<div class="login">
-  		<% if logged_in? %>
-  			<p>You are logged in as <%= current_user.login %> (<%= link_to "logout", logout_path %>)</p>
-  		<% end %>
-  	</div>
-  	<%= yield :footer %>
   </body>
 </html>

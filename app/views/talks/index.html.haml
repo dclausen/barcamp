@@ -1,4 +1,4 @@
-%table{ :width => "100%" }
+%table.table.table-striped{ :width => "100%" }
   %thead
     %tr
       %th Time
@@ -12,7 +12,7 @@
     - @talks.each do |t|
       %tr
         %td 
-          = t.start_time.strftime("%H:%M")
+          = t.start_time.strftime("%H:%M%p")
         %td
           = t.name
         %td 
