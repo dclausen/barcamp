@@ -6,8 +6,7 @@
       %th Speaker
       %th Room
       - if logged_in?
-        %th Edit
-        %th Delete
+        %th Actions
   %tbody
     - @talks.each do |t|
       %tr
@@ -21,6 +20,5 @@
           = t.room.name
         - if logged_in?
           %td
-            = link_to 'Edit', edit_talk_path(t) 
-          %td
-            = link_to('Delete', talk_path(t), :method => "delete") unless t.deleted_at
+            = link_to "Edit", edit_talk_path(t), :class => "btn btn-primary"
+            = link_to("Delete", talk_path(t), :class => "btn btn-danger", :method => "delete") unless t.deleted_at

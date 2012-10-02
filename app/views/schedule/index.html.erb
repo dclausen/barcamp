@@ -35,11 +35,10 @@
   </li>
 </ul>
 
-
 <% content_for :header do %>
   <div id="alternatives">
   	<%= link_to( "Text Version", "/schedule.txt" ) %>
-  	<%= link_to( "iPhone Version", "/schedule.iphone" ) %>
+  	<% link_to( "iPhone Version", "/schedule.iphone" ) %>
   	<%= link_to( "RSS Feed", "/schedule.rss" ) %>
   </div>
 <% end %>

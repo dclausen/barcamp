@@ -1,19 +1,29 @@
 <% content_for :head do %>
-	<%= stylesheet_link_tag "post-it"%>
-<%end%>
-<% form_tag session_path do -%>
-<fieldset>
-	<legend>Login</legend>
-	<span class="oneField"><label for="login" class="preField">Login</label>
-	<%= text_field_tag 'login' %></span>
+	<%= stylesheet_link_tag "post-it" %>
+<% end %>
 
-	<span class="oneField"><label for="password" class="preField">Password</label>
-	<%= password_field_tag 'password' %></span>
+<div class="row">
+  <div class="span11 offset1">
+    <% form_tag session_path, :class => "form-horizontal" do -%>
+      <div class="control-group">
+        <label class="control-label" for="login">Login</label>
+        <div class="controls">
+          <%= text_field_tag :login %>
+        </div>
+      </div>
 
-	<!-- Uncomment this if you want this functionality
-	<p><label for="remember_me">Remember me:</label>
-	<%= check_box_tag 'remember_me' %></p>
-	-->
-</fieldset>
-<p><%= submit_tag 'Log in' %></p>
-<% end -%>
+      <div class="control-group">
+        <label class="control-label" for="password">Password</label>
+        <div class="controls">
+          <%= password_field_tag "password" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <%= submit_tag "Log in", :class => "btn btn-success" %>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+</div>

@@ -23,27 +23,35 @@
     <% javascript_include_tag 'corners' %>
 
 	  <%= yield :head %>
+
+    <style type="text/css">
+      img { max-width: 100%; }
+    </style>
   </head>
 
   <body>
     <div class="container">
       <div class="row">
-        <div class="span12" style="text-align: center">
+        <div class="login offset8" style="padding: 20px">
+          <% if logged_in? %>
+            <p>You are logged in as <%= current_user.login %> (<%= link_to "logout", logout_path %>)</p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span12" style="padding-bottom: 20px;text-align: center">
           <%= link_to image_tag("barcamp-tampa-logo.png"), root_path %>
         </div>
       </div>
 
+      <%= yield :header %>
+
       <% if flash[:notice] %>
-        <div class="notice"><%= flash[:notice] %></div>
-      <%end%>
+        <div class="alert alert-info"><%= flash[:notice] %></div>
+      <% end %>
 
       <%= yield %>
-
-      <div class="login">
-        <% if logged_in? %>
-          <p>You are logged in as <%= current_user.login %> (<%= link_to "logout", logout_path %>)</p>
-        <% end %>
-      </div>
 
       <%= yield :footer %>
     </div>
