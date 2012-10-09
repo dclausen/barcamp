@@ -13,7 +13,7 @@
         %td 
           = t.start_time.strftime("%H:%M%p")
         %td
-          = t.name
+          = link_to t.name, talk_path(t)
         %td 
           = t.who
         %td

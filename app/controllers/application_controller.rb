@@ -9,10 +9,10 @@ class ApplicationController < ActionController::Base
 
   private
 
-    # Set iPhone format if request to iphone.trawlr.com
-    def adjust_format_for_iphone    
-      request.format = :iphone if iphone_request?
-    end
+  # Set iPhone format if request to iphone.trawlr.com
+  def adjust_format_for_iphone    
+    request.format = :iphone if iphone_request?
+  end
 
   # Return true for requests to iphone subdomain
   def iphone_request?
@@ -24,5 +24,8 @@ class ApplicationController < ActionController::Base
     request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
   end
 
+  def render_missing
+    render :file => "#{Rails.root}/public/404.html", :status => :not_found
+  end
 end
 
